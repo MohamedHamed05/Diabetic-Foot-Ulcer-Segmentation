@@ -7,6 +7,7 @@ from controllers.seg_controller import preprocess, predict, build_overlay, compu
 from model.schemes import SegmentationResponse
 from util.config import Config
 from util.utility import numpy_to_b64
+from model.enums.enums import segmentationEnums
 
 
 config = Config()
@@ -17,30 +18,38 @@ async def segment_image(request: Request, body: SegmentationRequest):
     try:
         image_bytes = base64.b64decode(body.image_b64)
     except Exception:
-        raise HTTPException(
-            status_code = 422,
-            detail = "Invalid base64 string. Ensure the image is properly encoded."
+        return JSONResponse(
+            status_code=422,
+            content = {
+                'signal' : segmentationEnums.INVALID_IMAGE.value
+            }
         )
 
     if len(image_bytes) == 0:
-        raise HTTPException(
-            status_code = 400,
-            detail = "The image is empty."
+        return JSONResponse(
+            status_code=400,
+            content = {
+                'signal' : segmentationEnums.IMAGE_EMPTY.value
+            }
         )
 
     if len(image_bytes) > config.max_file_size:
-        raise HTTPException(
-            status_code = 413,
-            detail      = (
-                f"Image too large ({len(image_bytes) / 1e6:.1f} MB). "
-                f"Maximum allowed size is {config.max_file_size / 1e6:.1f} MB."
-            )
+        return JSONResponse(
+            status_code=413,
+            content = {
+                'signal' : f"{segmentationEnums.IMAGE_TOO_LARGE.value} ({len(image_bytes) / 1e6:.1f} MB). Maximum allowed size is {config.max_file_size / 1e6:.1f} MB."
+            }
         )
 
     try:
         image_rgb, image_resized, tensor = preprocess(image_bytes)
     except ValueError as e:
-        raise HTTPException(status_code=422, detail=str(e))
+        return JSONResponse(
+            status_code=422,
+            content = {
+                'signal' : str(e)
+            }
+        )
     
     t0 = time.perf_counter()
     prob_map, pred_mask = predict(request.app.state.model, tensor)
