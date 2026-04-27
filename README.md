@@ -257,13 +257,13 @@ The model achieved strong performance on the test set with a Dice coefficient of
 The model was trained for 70 epochs using combined BCE and Dice loss. The following graphs illustrate training progression:
 
 **Loss Convergence:**
-![BCF+Dice Loss](src\assets\images\bce+dice_loss.png)
+![BCF+Dice Loss](src/assets/images/Dice_coeff.png)
 
 **Dice Coefficient Evolution:**
-![Dice Coefficient](src\assets\images\Dice_coeff.png)
+![Dice Coefficient](src/assets/images/Dice_coeff.png)
 
 **IoU (Jaccard Index) Progress:**
-![IoU Jaccard](src\assets\images\IoU.png)
+![IoU Jaccard](src/assets/images/IoU.png)
 
 All metrics show consistent convergence with validation performance stabilizing around epoch 54, indicating robust learning without significant overfitting.
 
