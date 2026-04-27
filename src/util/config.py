@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from utility import get_device
+from util.utility import get_device
 import numpy as np
 import torch
 
@@ -17,8 +17,9 @@ class Config(BaseModel):
     mean: np.ndarray = np.array([0.485, 0.456, 0.406], dtype=np.float32)
     std: np.ndarray = np.array([0.229, 0.224, 0.225], dtype=np.float32)
 
-    allowed_extensions: set[str] = {"image/jpg", "image/jpeg", "image/png", "image/heic"}
     max_file_size: int = 20 * 1024 * 1024  # 20 MB
     min_image_dim: int = 64
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
+
+config = Config()
