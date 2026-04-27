@@ -74,8 +74,8 @@ print(f"Inference Time: {result['inference_ms']:.1f}ms")
 
 ### Interactive API Documentation
 Once running, visit:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
+- **Swagger UI**: http://localhost:5000/docs
+- **ReDoc**: http://localhost:5000/redoc
 
 ## Philosophy
 
