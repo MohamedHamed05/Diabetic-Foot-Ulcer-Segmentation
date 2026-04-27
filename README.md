@@ -301,7 +301,7 @@ Use the included Postman collection at [src/assets/DiaMate-DFU.postman_collectio
 
 ### Debugging
 - **Verbose Logging**: Check console output for model loading and inference metrics
-- **API Docs**: Visit `http://localhost:8000/docs` for interactive testing
+- **API Docs**: Visit `http://localhost:5000/docs` for interactive testing
 - **Error Signals**: Check response signals in [src/model/enums/enums.py](src/model/enums/enums.py)
 
 ## License
