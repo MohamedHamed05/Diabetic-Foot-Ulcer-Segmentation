@@ -2,9 +2,9 @@ from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 from model.enums.enums import segmentationEnums
 
-base_router = APIRouter(prefix='/api/v1')
+base_router = APIRouter()
 
-@base_router.get('/')
+@base_router.get('/health')
 async def health(request: Request):
     model_status = "loaded" if hasattr(request.app.state, "model") else "not loaded"
     if model_status == "not loaded":
